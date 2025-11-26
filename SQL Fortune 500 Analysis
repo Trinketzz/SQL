@@ -10,8 +10,8 @@ FROM fortune_companies
 ORDER BY revenue;
 
 #Show which industries have an average number of paid time off days of 15 or more.
-SELECT industry, 
-AVG (paid_time_off_days) AS avg_paid_time_off_days
+SELECT industry
+,AVG (paid_time_off_days) AS avg_paid_time_off_days
 FROM fortune_companies
 GROUP BY industry
 HAVING paid_time_off_days >=15
