@@ -1,0 +1,54 @@
+--Show which VIPS have not made a hotel reservation--
+SELECT vips.member_id
+    , vips.first_name
+    , vips.last_name
+    , reservations.member_id
+    , reservations.hotel
+FROM vips 
+LEFT JOIN reservations 
+    ON vips.member_id = reservations.member_id
+LEFT JOIN hotels
+	ON hotels.hotel_name = reservations.hotel;
+
+
+--Show which VIPs have events AND booked a hotel--
+SELECT vips.member_id
+    , vips.first_name
+    , vips.event
+    , reservations.member_id
+    , reservations.hotel
+FROM vips 
+INNER JOIN reservations 
+    ON vips.member_id = reservations.member_id;
+
+
+--Show VIPs names and the event they're attending, the hotel they're staying--
+SELECT vips.member_id
+    , vips.first_name
+    , vips.last_name
+    , events.event_id
+    , hotels.hotel_id
+FROM vips 
+INNER JOIN reservations 
+    ON vips.member_id = reservations.member_id
+INNER JOIN events
+	ON reservations.hotel = events.event_id
+INNER JOIN hotels
+	ON reservations.hotel = hotels.hotel_id;
+
+--Show VIPs who have reserved an event that is a Panel
+SELECT
+      v.first_name
+    , v.last_name
+    , e.event_name
+    , e.event_type
+FROM vips AS v
+JOIN reservations AS r
+    ON v.member_id = r.member_id
+JOIN events AS e
+    ON e.event_id = e.event_id
+WHERE e.event_id IN (
+      SELECT event_id
+      FROM events
+      WHERE event_type = 'Panel');
+
