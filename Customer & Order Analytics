@@ -60,6 +60,49 @@ WHERE Feb.Quantity>2
 AND length(orderid) = 6
 AND orderid <> 'Order ID';
 
+--How many of each type of headphone were sold in February?
+SELECT SUM (Quantity) 
+FROM BIT_DB.FebSales
+WHERE Product LIKE '%Headphone%'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+GROUP BY Product;
+
+--What was the average amount spent per account in February?
+SELECT avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust 
+ON FEB.orderid=cust.order_id
+WHERE length(orderid) = 6
+AND orderid<>'Order ID';
+
+--Find order ids from Georgia (GA) where the order has an average price greater than $1,000. 
+SELECT orderID 
+FROM BIT_DB.AprSales
+WHERE orderdate LIKE '04/1%'  
+AND location LIKE '%GA%'
+AND length(orderid) = 6 
+AND orderid<> 'Order ID'
+GROUP BY orderID
+HAVING AVG(price) > 1000;
+
+--Return only 10 results from the date table below. Do not use LIMIT. I have location and orderID columns on the MaySales table. 
+SELECT location, orderID
+FROM BIT_DB.MaySales
+WHERE orderID LIKE '1943_5'
+AND length(orderid) = 6
+AND orderid <> 'Order ID'
+ORDER BY orderID;
+
+--Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT SUM(quantity*price)
+FROM BIT_DB.JanSales
+GROUP BY product
+ORDER BY sum(quantity*price) desc
+LIMIT 1;
+
+
+
 --Usage of WHERE, LIKE, %, (_), with dates or between dates
 SELECT distinct Product, Price
 FROM BIT_DB.FebSales
