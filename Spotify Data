@@ -1,0 +1,19 @@
+--Show average tempo, loudness and energy then group by artist name and track name. 
+SELECT
+artist_name
+,track_name
+,avg(tempo)
+,avg(loudness)
+,avg(energy)
+FROM Spotifydata
+GROUP BY artist_name, track_name;
+
+--Show data from artist name and track name based on average duration, popularity and time signature. 
+SELECT 
+artist_name
+,track_name
+,avg(duration_ms)
+,avg(popularity)
+,avg(time_signature)
+FROM Spotifydata
+GROUP BY artist_name, track_name; 
