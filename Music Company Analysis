@@ -1,0 +1,43 @@
+Data from music streaming company that also includes music data, customer and employee data
+link to diagram: https://dbdiagram.io/d/chinook-bit-684a02a5a463a450da2640c1
+
+
+--Show Customers (their full names, customer ID, and country) who are not in the US.
+SELECT
+    CustomerId,
+    FirstName || ' ' || LastName AS FullName,
+    Country
+FROM
+    Customers
+WHERE
+    Country <> 'USA';
+
+--Show only the Customers from Brazil.
+SELECT
+    CustomerId,
+    FirstName || ' ' || LastName AS FullName,
+    Country
+FROM Customers
+WHERE Country = 'Brazil';
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+SELECT
+    FirstName || ' ' || LastName AS FullName,
+    InvoiceId,
+    InvoiceDate,
+    BillingCountry
+FROM customers
+JOIN invoices
+    ON customers.CustomerId = invoices.CustomerId
+WHERE Country = 'Brazil';
+
+--Show the Employees who are Sales Agents.
+SELECT 
+EmployeeId, 
+FirstName,
+LastName,
+Title
+FROM employees
+WHERE Title = 'Sales Support Agent';
+
+--Find a unique/distinct list of billing countries from the Invoice table.
